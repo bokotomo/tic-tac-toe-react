@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "sourceMap": true,
+        "target": "esnext",
+        "module": "esnext",
+        "jsx": "react",
+        "moduleResolution": "node",
+        "isolatedModules": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "ES2021",
+            "DOM"
+        ]
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ]
+}
