@@ -3,13 +3,20 @@ import styles from './style.module.css';
 import { useHooks } from './hooks';
 import TicTacToeItem from '../TicTacToeItem';
 
+interface Props {
+  /** タイトル */
+  readonly title?: string;
+  /** 開始ボタンタイトル */
+  readonly startTitle?: string;
+}
+
 /**
  * TicTacToe Compornent
  */
-const TicTacToe: React.FC = (): JSX.Element => {
+const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
   const { rows, onClickItem, onClickStart } = useHooks();
-  const title = 'Tic Tac Toe';
-  const startTitle = 'Game Start';
+  const title = p.title || 'Tic Tac Toe';
+  const startTitle = p.startTitle || 'Game Start';
 
   return (
     <div className={styles.wrapper}>

@@ -17,7 +17,7 @@ export const useHooks = () => {
   /** ゲームが終わったか */
   const [isGameEnd, setIsGameEnd] = useState<boolean>(false);
   /** 勝者 */
-  const [isWinFirst, setIsWinFirst] = useState<GameEndType | null>(null);
+  const [winner, setWinner] = useState<GameEndType | null>(null);
 
   /**
    * 配列の追加
@@ -54,18 +54,16 @@ export const useHooks = () => {
    */
   useEffect(() => {
     if (!isGameEnd) return;
-    switch (isWinFirst) {
-      case GameEndType.Win:
-        alert('先行の勝ちです！');
+    switch (winner) {
+      case GameEndType.WinMe:
+        alert('あなたの勝ちです！');
         break;
-      case GameEndType.Lose:
-        alert('後攻の勝ちです！');
+      case GameEndType.WinEnemy:
+        alert('相手の勝ちです！');
         break;
       case GameEndType.Draw:
         alert('引き分けです!');
         break;
-      default:
-        alert('エラー');
     }
   }, [isGameEnd]);
 
@@ -75,34 +73,40 @@ export const useHooks = () => {
    */
   const checkGame = (): boolean => {
     // 横
-    const isXF = rows.some(line => line.every(l => l === ItemType.First));
-    const isXS = rows.some(line => line.every(l => l === ItemType.Second));
+    const isXM = rows.some(line => line.every(l => l === ItemType.Me));
+    const isXE = rows.some(line => line.every(l => l === ItemType.Enemy));
 
     // 縦
     const ts = transpose(rows);
-    const isYF = ts.some(line => line.every(l => l === ItemType.First));
-    const isYS = ts.some(line => line.every(l => l === ItemType.Second));
+    const isYM = ts.some(line => line.every(l => l === ItemType.Me));
+    const isYE = ts.some(line => line.every(l => l === ItemType.Enemy));
 
     // 斜め
-    const isZF = rows.every((line, i) => line[i] === ItemType.First);
-    const isZS = rows.every((line, i) => line[i] === ItemType.Second);
+    const isZM = rows.every((line, i) => line[i] === ItemType.Me);
+    const isZE = rows.every((line, i) => line[i] === ItemType.Enemy);
 
     // 斜め
-    const isZTF = rows.every(
-      (line, i) => line[line.length - i - 1] === ItemType.First
+    const isZTM = rows.every(
+      (line, i) => line[line.length - i - 1] === ItemType.Me
     );
-    const isZTS = rows.every(
-      (line, i) => line[line.length - i - 1] === ItemType.Second
+    const isZTE = rows.every(
+      (line, i) => line[line.length - i - 1] === ItemType.Enemy
     );
 
-    const isWinF = isXF || isYF || isZF || isZTF;
-    const isWinS = isXS || isYS || isZS || isZTS;
-    const isDraw = rows.flat().every(r => r !== ItemType.Unset);
-    const isEnd = isWinF || isWinS || isDraw;
+    const isWinM = isXM || isYM || isZM || isZTM;
+    const isWinE = isXE || isYE || isZE || isZTE;
+    const isDraw =
+      !isWinM && !isWinE && rows.flat().every(r => r !== ItemType.Unset);
+    const isEnd = isWinM || isWinE || isDraw;
 
     if (isEnd) {
       setIsGameEnd(true);
-      setIsWinFirst(isDraw ? GameEndType.Draw : GameEndType.Win);
+      const winner = isWinM
+        ? GameEndType.WinMe
+        : isDraw
+        ? GameEndType.Draw
+        : GameEndType.WinEnemy;
+      setWinner(winner);
     }
 
     return isEnd;
@@ -129,7 +133,7 @@ export const useHooks = () => {
     const index = random(canUseRows.length - 1);
     const useRow = canUseRows[index];
 
-    setRow(useRow[0], useRow[1], ItemType.Second);
+    setRow(useRow[0], useRow[1], ItemType.Enemy);
 
     setTurnNumber(turnNumber + 1);
   };
@@ -161,7 +165,7 @@ export const useHooks = () => {
     if (turnNumber === 0) return;
     if (isGameEnd) return;
     if (!canSetRow(row, hor)) return;
-    setRow(row, hor, ItemType.First);
+    setRow(row, hor, ItemType.Me);
     setTurnNumber(turnNumber + 1);
   };
 
@@ -173,7 +177,7 @@ export const useHooks = () => {
     setTurnNumber(0);
     setIsFirstTurn(false);
     setIsGameEnd(false);
-    setIsWinFirst(null);
+    setWinner(null);
   };
 
   /**
@@ -184,9 +188,9 @@ export const useHooks = () => {
 
     const isFirst = random(1) === 0;
     if (isFirst) {
-      alert('先行です');
+      alert('あなたが先行です!');
     } else {
-      alert('後攻です');
+      alert('あなたが後攻です!');
     }
     setIsFirstTurn(isFirst);
     setTurnNumber(1);

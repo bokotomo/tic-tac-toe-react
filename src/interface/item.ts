@@ -3,8 +3,8 @@
  */
 export enum ItemType {
   Unset = 0,
-  First = 1,
-  Second = 2,
+  Me = 1,
+  Enemy = 2,
 }
 
 /**
@@ -12,6 +12,6 @@ export enum ItemType {
  */
 export enum GameEndType {
   Draw = 0,
-  Win = 1,
-  Lose = 2,
+  WinMe = 1,
+  WinEnemy = 2,
 }

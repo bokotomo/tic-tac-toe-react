@@ -15,8 +15,8 @@ interface Props {
 const TicTacToeItem: React.FC<Props> = (p: Props): JSX.Element => {
   return (
     <div className={styles.item} onClick={p.onClickItem}>
-      {p.isType === ItemType.First && 'O'}
-      {p.isType === ItemType.Second && 'X'}
+      {p.isType === ItemType.Me && 'O'}
+      {p.isType === ItemType.Enemy && 'X'}
     </div>
   );
 };
