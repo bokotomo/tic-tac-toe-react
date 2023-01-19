@@ -11,7 +11,7 @@ export enum ItemType {
  * ゲームエンド
  */
 export enum GameEndType {
-  Draw = 0,
-  WinMe = 1,
-  WinEnemy = 2,
+  Draw = 1,
+  WinMe = 2,
+  WinEnemy = 3,
 }

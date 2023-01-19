@@ -4,7 +4,7 @@ import { random } from '../modules/math';
 import { checkTicTacToe, getAIRow } from './logic';
 
 /**
- *
+ * Hooks: TicTacToe
  */
 export const useHooks = (squareSize: number) => {
   const isFirst = useRef(false);
@@ -154,6 +154,7 @@ export const useHooks = (squareSize: number) => {
 
   return {
     rows,
+    winner,
     setRows,
     onClickItem,
     onClickStart,
