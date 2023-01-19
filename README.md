@@ -1,6 +1,7 @@
 # tic-tac-toe-react
 
-great game.
+great game.  
+[demo page](https://bokotomo.github.io/tic-tac-toe-react/)
 
 ## Installation
 
@@ -16,7 +17,7 @@ npm i -D @types/~~~
 
 ## View
 
-![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/tictactoeThumb.jpg?raw=true 'img')
+![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/images/tictactoeThumb.jpg?raw=true 'img')
 
 # Game Mode
 
@@ -39,7 +40,7 @@ props.
 <TicTacToe squareSize={10} />
 ```
 
-![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/tictactoeThumbSize.jpg?raw=true 'img')
+![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/images/tictactoeThumbSize.jpg?raw=true 'img')
 
 ## title
 
