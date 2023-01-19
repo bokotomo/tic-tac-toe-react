@@ -25,8 +25,8 @@ props.
 ## squareSize
 
 ```
-<TicTacToe squareSize={5} />
 <TicTacToe squareSize={2} />
+<TicTacToe squareSize={5} />
 <TicTacToe squareSize={10} />
 ```
 
@@ -44,7 +44,15 @@ props.
 />
 ```
 
+## color
+
+```
+<TicTacToe itemColor="orange" itemMarkColor="red" />
+```
+
 # Command
+
+develop command
 
 ## demo
 
