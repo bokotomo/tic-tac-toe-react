@@ -13,3 +13,7 @@ npm i ~~~
 ```
 npm i -D @types/~~~
 ```
+
+## view
+
+![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/tictactoeThumb.jpg?raw=true 'img')
