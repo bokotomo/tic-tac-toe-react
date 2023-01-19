@@ -32,10 +32,16 @@ props.
 
 ![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/tictactoeThumbSize.jpg?raw=true 'img')
 
-## title
+## text
 
 ```
-<TicTacToe title="custom title" startButtonTitle="start button title"/>
+<TicTacToe
+    title="custom title"
+    startButtonTitle="start button title"
+    textWinMe="You Win!"
+    textWinEnemy="You Lose!"
+    textDraw="Draw!"
+/>
 ```
 
 # Command
