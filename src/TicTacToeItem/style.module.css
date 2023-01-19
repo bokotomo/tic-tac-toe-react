@@ -14,7 +14,7 @@
   transition: 0.2s;
 }
 .item::before {
-  content: "";
+  content: '';
   padding-top: 100%;
   display: block;
 }
