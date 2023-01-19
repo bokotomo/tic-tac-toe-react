@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ItemType, GameEndType } from '../interface/item';
-import { random, transpose } from '../modules/math';
+import { random } from '../modules/math';
+import { checkTicTacToe, getAIRow } from './logic';
 
 /** 正方形の列の数 */
 const defaultSize = 3;
@@ -45,7 +46,7 @@ export const useHooks = () => {
    */
   useEffect(() => {
     if (turnNumber === 0) return;
-    if (checkGame()) return;
+    if (checkGameEnd()) return;
     if (isAITurn(isFirstTurn, turnNumber)) runAITurn();
   }, [turnNumber]);
 
@@ -56,10 +57,10 @@ export const useHooks = () => {
     if (!isGameEnd) return;
     switch (winner) {
       case GameEndType.WinMe:
-        alert('あなたの勝ちです！');
+        alert('「あなた」の勝ちです！');
         break;
       case GameEndType.WinEnemy:
-        alert('相手の勝ちです！');
+        alert('「相手」の勝ちです！');
         break;
       case GameEndType.Draw:
         alert('引き分けです!');
@@ -71,70 +72,27 @@ export const useHooks = () => {
    * ゲームを評価
    * 勝利のパターンは、(縦横の総数) + 対角線の数
    */
-  const checkGame = (): boolean => {
-    // 横
-    const isXM = rows.some(line => line.every(l => l === ItemType.Me));
-    const isXE = rows.some(line => line.every(l => l === ItemType.Enemy));
-
-    // 縦
-    const ts = transpose(rows);
-    const isYM = ts.some(line => line.every(l => l === ItemType.Me));
-    const isYE = ts.some(line => line.every(l => l === ItemType.Enemy));
-
-    // 斜め
-    const isZM = rows.every((line, i) => line[i] === ItemType.Me);
-    const isZE = rows.every((line, i) => line[i] === ItemType.Enemy);
-
-    // 斜め
-    const isZTM = rows.every(
-      (line, i) => line[line.length - i - 1] === ItemType.Me
-    );
-    const isZTE = rows.every(
-      (line, i) => line[line.length - i - 1] === ItemType.Enemy
-    );
-
-    const isWinM = isXM || isYM || isZM || isZTM;
-    const isWinE = isXE || isYE || isZE || isZTE;
-    const isDraw =
-      !isWinM && !isWinE && rows.flat().every(r => r !== ItemType.Unset);
-    const isEnd = isWinM || isWinE || isDraw;
-
+  const checkGameEnd = (): boolean => {
+    const { isEnd, winner } = checkTicTacToe(rows);
     if (isEnd) {
       setIsGameEnd(true);
-      const winner = isWinM
-        ? GameEndType.WinMe
-        : isDraw
-        ? GameEndType.Draw
-        : GameEndType.WinEnemy;
       setWinner(winner);
     }
-
     return isEnd;
   };
 
   /**
    * ターン判別
    */
-  const isAITurn = (isUserFirst: boolean, t: number): boolean =>
-    isUserFirst ? t % 2 === 0 : t % 2 === 1;
+  const isAITurn = (isFirst: boolean, t: number): boolean =>
+    isFirst ? t % 2 === 0 : t % 2 === 1;
 
   /**
    * AIのターン
    */
   const runAITurn = (): void => {
-    const unsetRowsMulti: (number[] | null)[][] = rows.map((line, i) =>
-      line.map((l, j) => {
-        if (l === ItemType.Unset) return [i, j];
-        return null;
-      })
-    );
-    const unsetRows = unsetRowsMulti.flat();
-    const canUseRows = unsetRows.filter(r => !!r) as number[][];
-    const index = random(canUseRows.length - 1);
-    const useRow = canUseRows[index];
-
+    const useRow = getAIRow(rows);
     setRow(useRow[0], useRow[1], ItemType.Enemy);
-
     setTurnNumber(turnNumber + 1);
   };
 
@@ -165,6 +123,7 @@ export const useHooks = () => {
     if (turnNumber === 0) return;
     if (isGameEnd) return;
     if (!canSetRow(row, hor)) return;
+
     setRow(row, hor, ItemType.Me);
     setTurnNumber(turnNumber + 1);
   };
@@ -188,9 +147,9 @@ export const useHooks = () => {
 
     const isFirst = random(1) === 0;
     if (isFirst) {
-      alert('あなたが先行です!');
+      alert('あなたが「先攻」です!');
     } else {
-      alert('あなたが後攻です!');
+      alert('あなたが「後攻」です!');
     }
     setIsFirstTurn(isFirst);
     setTurnNumber(1);
