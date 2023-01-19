@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { ItemType } from './interface/item';
-import { random, transpose } from './math';
+import { ItemType, GameEndType } from '../interface/item';
+import { random, transpose } from '../modules/math';
 
 /** 正方形の列の数 */
 const defaultSize = 3;
@@ -17,7 +17,7 @@ export const useHooks = () => {
   /** ゲームが終わったか */
   const [isGameEnd, setIsGameEnd] = useState<boolean>(false);
   /** 勝者 */
-  const [isWinFirst, setIsWinFirst] = useState<boolean | null>(null);
+  const [isWinFirst, setIsWinFirst] = useState<GameEndType | null>(null);
 
   /**
    * 配列の追加
@@ -54,10 +54,18 @@ export const useHooks = () => {
    */
   useEffect(() => {
     if (!isGameEnd) return;
-    if (isWinFirst) {
-      alert('先行の勝ちです！');
-    } else {
-      alert('後攻の勝ちです！');
+    switch (isWinFirst) {
+      case GameEndType.Win:
+        alert('先行の勝ちです！');
+        break;
+      case GameEndType.Lose:
+        alert('後攻の勝ちです！');
+        break;
+      case GameEndType.Draw:
+        alert('引き分けです!');
+        break;
+      default:
+        alert('エラー');
     }
   }, [isGameEnd]);
 
@@ -89,11 +97,12 @@ export const useHooks = () => {
 
     const isWinF = isXF || isYF || isZF || isZTF;
     const isWinS = isXS || isYS || isZS || isZTS;
-    const isEnd = isWinF || isWinS;
+    const isDraw = rows.flat().every(r => r !== ItemType.Unset);
+    const isEnd = isWinF || isWinS || isDraw;
 
     if (isEnd) {
       setIsGameEnd(true);
-      setIsWinFirst(isWinF);
+      setIsWinFirst(isDraw ? GameEndType.Draw : GameEndType.Win);
     }
 
     return isEnd;

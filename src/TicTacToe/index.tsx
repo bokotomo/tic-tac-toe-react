@@ -1,17 +1,19 @@
 import React from 'react';
-import styles from './TicTacToe.module.css';
+import styles from './style.module.css';
 import { useHooks } from './hooks';
-import TicTacToeItem from './TicTacToeItem';
+import TicTacToeItem from '../TicTacToeItem';
 
 /**
- *
+ * TicTacToe Compornent
  */
 const TicTacToe: React.FC = (): JSX.Element => {
   const { rows, onClickItem, onClickStart } = useHooks();
+  const title = 'Tic Tac Toe';
+  const startTitle = 'Game Start';
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.title}>Tic Tac Toe</div>
+      <div className={styles.title}>{title}</div>
 
       <div className={styles.itemWrapper}>
         {rows.map((line, i) => (
@@ -30,7 +32,7 @@ const TicTacToe: React.FC = (): JSX.Element => {
       <div className={styles.spacer} />
 
       <div className={styles.buttonGame} onClick={onClickStart}>
-        Game Start
+        {startTitle}
       </div>
     </div>
   );

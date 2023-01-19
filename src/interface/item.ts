@@ -6,3 +6,12 @@ export enum ItemType {
   First = 1,
   Second = 2,
 }
+
+/**
+ * ゲームエンド
+ */
+export enum GameEndType {
+  Draw = 0,
+  Win = 1,
+  Lose = 2,
+}

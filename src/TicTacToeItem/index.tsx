@@ -1,14 +1,16 @@
 import React from 'react';
-import styles from './TicTacToe.module.css';
-import { ItemType } from './interface/item';
+import styles from './style.module.css';
+import { ItemType } from '../interface/item';
 
 interface Props {
+  /** アイテムをクリックした */
   readonly onClickItem: () => void;
+  /** 先攻後攻か */
   readonly isType: ItemType;
 }
 
 /**
- *
+ * TicTacToeItem Compornent
  */
 const TicTacToeItem: React.FC<Props> = (p: Props): JSX.Element => {
   return (
