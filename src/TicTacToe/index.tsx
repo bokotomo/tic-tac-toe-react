@@ -10,8 +10,16 @@ import { GameEndType } from '../interface/item';
  * TicTacToe Compornent
  */
 const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
-  const { size, title, startTitle, textWinMe, textWinEnemy, textDraw } =
-    useAdapter(p);
+  const {
+    size,
+    title,
+    startTitle,
+    textWinMe,
+    textWinEnemy,
+    textDraw,
+    itemColor,
+    itemMarkColor,
+  } = useAdapter(p);
   const { rows, winner, onClickItem, onClickStart } = useHooks(size);
   const width = 100 / size - 1 + '%';
 
@@ -30,6 +38,8 @@ const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
                 onClickItem={() => onClickItem(i, j)}
                 isType={v}
                 width={width}
+                itemColor={itemColor}
+                itemMarkColor={itemMarkColor}
               />
             ))}
           </div>

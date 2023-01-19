@@ -14,4 +14,8 @@ export interface Props {
   readonly textWinEnemy?: string;
   /** 引き分けテキスト */
   readonly textDraw?: string;
+  /** アイテムの背景色 */
+  readonly itemColor?: string;
+  /** アイテムのマークの色 */
+  readonly itemMarkColor?: string;
 }

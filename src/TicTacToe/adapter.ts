@@ -10,6 +10,8 @@ const defaultConfig = {
   textWinMe: 'You Win!',
   textWinEnemy: 'You Lose!',
   textDraw: 'Draw!',
+  itemColor: 'linear-gradient(135deg, #5258aa, #456db5)',
+  itemMarkColor: 'white',
 };
 
 /**
@@ -22,6 +24,8 @@ interface AdapterReturn {
   readonly textWinMe: string;
   readonly textWinEnemy: string;
   readonly textDraw: string;
+  readonly itemColor: string;
+  readonly itemMarkColor: string;
 }
 
 /**
@@ -35,6 +39,8 @@ export const useAdapter = (p: Props): AdapterReturn => {
   const textWinMe = p.textWinMe || defaultConfig.textWinMe;
   const textWinEnemy = p.textWinEnemy || defaultConfig.textWinEnemy;
   const textDraw = p.textDraw || defaultConfig.textDraw;
+  const itemColor = p.itemColor || defaultConfig.itemColor;
+  const itemMarkColor = p.itemMarkColor || defaultConfig.itemMarkColor;
 
   return {
     size,
@@ -43,5 +49,7 @@ export const useAdapter = (p: Props): AdapterReturn => {
     textWinMe,
     textWinEnemy,
     textDraw,
+    itemColor,
+    itemMarkColor,
   };
 };

@@ -11,6 +11,10 @@ interface Props {
   readonly isType: ItemType;
   /** 横幅 */
   readonly width: string;
+  /** 背景色 */
+  readonly itemColor: string;
+  /** マークの色 */
+  readonly itemMarkColor: string;
 }
 
 /**
@@ -21,13 +25,16 @@ const TicTacToeItem: React.FC<Props> = (p: Props): JSX.Element => {
     <div
       className={styles.item}
       onClick={p.onClickItem}
-      style={{ width: p.width }}
+      style={{
+        width: p.width,
+        background: p.itemColor,
+      }}
     >
       {p.isType === ItemType.Me && (
-        <Circle style={{ width: '42%' }} color="white" />
+        <Circle style={{ width: '42%' }} color={p.itemMarkColor} />
       )}
       {p.isType === ItemType.Enemy && (
-        <Xmark style={{ width: '42%' }} color="white" />
+        <Xmark style={{ width: '42%' }} color={p.itemMarkColor} />
       )}
     </div>
   );
