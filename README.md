@@ -32,6 +32,16 @@ props.
 
 ![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/tictactoeThumbSize.jpg?raw=true 'img')
 
+## title
+
+```
+// Title is displayed.
+<TicTacToe title="Tic Tac Toe" />
+
+// Title is not displayed.
+<TicTacToe />
+```
+
 ## text
 
 ```
@@ -48,6 +58,13 @@ props.
 
 ```
 <TicTacToe itemColor="orange" itemMarkColor="red" />
+```
+
+## styles
+
+```
+<TicTacToe buttonStyle={{ color: 'red', fontSize: 30 }} />
+<TicTacToe itemStyle={{ borderRadius: 100 }} />
 ```
 
 # Command
