@@ -9,6 +9,8 @@ export interface Props {
   readonly title?: string;
   /** ゲームモード */
   readonly gameMode?: GameModeType;
+  /** 全体の横幅 */
+  readonly width?: string | number;
   /** 開始ボタンタイトル */
   readonly startButtonTitle?: string;
   /** 縦横の列数 */

@@ -26,7 +26,7 @@ const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
   const { rows, winner, onClickItem, onClickStart } = useHooks(size, gameMode);
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} style={{ width: p.width }}>
       {p.title && (
         <>
           <div className={s.title}>{p.title}</div>
