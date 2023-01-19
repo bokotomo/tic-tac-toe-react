@@ -14,9 +14,18 @@ npm i ~~~
 npm i -D @types/~~~
 ```
 
-## view
+## View
 
 ![img](https://github.com/bokotomo/tic-tac-toe-react/blob/main/docs/tictactoeThumb.jpg?raw=true 'img')
+
+# Game Mode
+
+```
+// Friend mode
+<TicTacToe gameMode={GameModeType.FRIEND} />
+// AI mode
+<TicTacToe gameMode={GameModeType.AI} />
+```
 
 # Customize
 
@@ -66,6 +75,22 @@ props.
 <TicTacToe buttonStyle={{ color: 'red', fontSize: 30 }} />
 <TicTacToe itemStyle={{ borderRadius: 100 }} />
 ```
+
+## Props List
+
+| Props            | Type                                 | example               |
+| ---------------- | ------------------------------------ | --------------------- |
+| gameMode         | GameModeType.AI, GameModeType.FRIEND | GameModeType.AI       |
+| title            | string                               | "title"               |
+| startButtonTitle | string                               | "startButtonTitle"    |
+| squareSize       | number                               | 5                     |
+| textWinMe        | string                               | "textWinMe"           |
+| textWinEnemy     | string                               | "textWinEnemy"        |
+| textDraw         | string                               | "textDraw"            |
+| itemColor        | string                               | "orange"              |
+| itemMarkColor    | string                               | "red"                 |
+| itemStyle        | CSSProperties                        | { borderRadius: 100 } |
+| buttonStyle      | CSSProperties                        | { color: 'red' }      |
 
 # Command
 
