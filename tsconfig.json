@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "strict": true,
+        "noImplicitAny": true,
         "sourceMap": true,
         "target": "esnext",
         "module": "esnext",
@@ -8,6 +9,10 @@
         "moduleResolution": "node",
         "isolatedModules": true,
         "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
         "lib": [
             "ES2021",
             "DOM"

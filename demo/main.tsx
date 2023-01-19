@@ -12,6 +12,6 @@ createRoot(c).render(
       margin: 'auto',
     }}
   >
-    <TicTacToe squareSize={3} />
+    <TicTacToe squareSize={3} title="Tic Tac Toe" />
   </div>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './style.module.css';
+import s from './style.module.css';
 import { useHooks } from './hooks';
 import { useAdapter } from './adapter';
 import { Props } from './interface';
@@ -12,26 +12,30 @@ import { GameEndType } from '../interface/item';
 const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
   const {
     size,
-    title,
-    startTitle,
+    width,
+    startButtonTitle,
     textWinMe,
     textWinEnemy,
     textDraw,
     itemColor,
     itemMarkColor,
+    buttonStyle,
+    itemStyle,
   } = useAdapter(p);
   const { rows, winner, onClickItem, onClickStart } = useHooks(size);
-  const width = 100 / size - 1 + '%';
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.title}>{title}</div>
-
-      <div className={styles.spacer} />
+    <div className={s.wrapper}>
+      {p.title && (
+        <>
+          <div className={s.title}>{p.title}</div>
+          <div className={s.spacer} />
+        </>
+      )}
 
       <div>
         {rows.map((line, i) => (
-          <div key={i} className={styles.items}>
+          <div key={i} className={s.items}>
             {line.map((v, j) => (
               <TicTacToeItem
                 key={j}
@@ -40,23 +44,24 @@ const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
                 width={width}
                 itemColor={itemColor}
                 itemMarkColor={itemMarkColor}
+                style={itemStyle}
               />
             ))}
           </div>
         ))}
       </div>
 
-      <div className={styles.spacer} />
+      <div className={s.spacer} />
 
-      <div className={styles.buttonGame} onClick={onClickStart}>
-        {startTitle}
+      <div className={s.buttonGame} onClick={onClickStart} style={buttonStyle}>
+        {startButtonTitle}
       </div>
 
       {winner && (
         <>
-          <div className={styles.spacer} />
+          <div className={s.spacer} />
 
-          <div className={styles.title}>
+          <div className={s.title}>
             {winner === GameEndType.WinMe && <>{textWinMe}</>}
             {winner === GameEndType.WinEnemy && <>{textWinEnemy}</>}
             {winner === GameEndType.Draw && <>{textDraw}</>}

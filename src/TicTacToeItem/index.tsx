@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './style.module.css';
+import s from './style.module.css';
 import { ItemType } from '../interface/item';
 import Circle from './svg/Circle';
 import Xmark from './svg/Xmark';
@@ -15,6 +15,8 @@ interface Props {
   readonly itemColor: string;
   /** マークの色 */
   readonly itemMarkColor: string;
+  /** スタイル */
+  readonly style?: React.CSSProperties;
 }
 
 /**
@@ -23,11 +25,12 @@ interface Props {
 const TicTacToeItem: React.FC<Props> = (p: Props): JSX.Element => {
   return (
     <div
-      className={styles.item}
+      className={s.item}
       onClick={p.onClickItem}
       style={{
         width: p.width,
         background: p.itemColor,
+        ...p.style,
       }}
     >
       {p.isType === ItemType.Me && (

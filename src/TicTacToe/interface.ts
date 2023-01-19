@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 /**
  * TicTacToeの引数
  */
@@ -18,4 +20,8 @@ export interface Props {
   readonly itemColor?: string;
   /** アイテムのマークの色 */
   readonly itemMarkColor?: string;
+  /** ボタンのCSS */
+  readonly buttonStyle?: CSSProperties;
+  /** アイテムのCSS */
+  readonly itemStyle?: CSSProperties;
 }

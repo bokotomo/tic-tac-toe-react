@@ -3,10 +3,17 @@ import { ItemType, GameEndType } from '../interface/item';
 import { random } from '../modules/math';
 import { checkTicTacToe, getAIRow } from './logic';
 
+interface HooksReturn {
+  readonly rows: ItemType[][];
+  readonly winner: GameEndType | null;
+  readonly onClickItem: (row: number, hor: number) => void;
+  readonly onClickStart: () => void;
+}
+
 /**
  * Hooks: TicTacToe
  */
-export const useHooks = (squareSize: number) => {
+export const useHooks = (squareSize: number): HooksReturn => {
   const isFirst = useRef(false);
   const [rows, setRows] = useState<ItemType[][]>([]);
   const [turnNumber, setTurnNumber] = useState<number>(0);
@@ -31,7 +38,7 @@ export const useHooks = (squareSize: number) => {
   /**
    * 初期値のセット
    */
-  useEffect(() => {
+  useEffect((): void => {
     if (isFirst.current) return;
     isFirst.current = true;
 
@@ -41,7 +48,7 @@ export const useHooks = (squareSize: number) => {
   /**
    * ターン
    */
-  useEffect(() => {
+  useEffect((): void => {
     if (turnNumber === 0) return;
     if (checkGameEnd()) return;
     if (isAITurn(isFirstTurn, turnNumber)) runAITurn();
@@ -50,7 +57,7 @@ export const useHooks = (squareSize: number) => {
   /**
    * ゲーム終了イベント
    */
-  useEffect(() => {
+  useEffect((): void => {
     if (!isGameEnd) return;
     switch (winner) {
       case GameEndType.WinMe:
@@ -155,7 +162,6 @@ export const useHooks = (squareSize: number) => {
   return {
     rows,
     winner,
-    setRows,
     onClickItem,
     onClickStart,
   };
