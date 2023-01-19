@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+import { GameModeType } from '../interface/game';
 
 /**
  * TicTacToeの引数
@@ -6,6 +7,8 @@ import { CSSProperties } from 'react';
 export interface Props {
   /** タイトル */
   readonly title?: string;
+  /** ゲームモード */
+  readonly gameMode?: GameModeType;
   /** 開始ボタンタイトル */
   readonly startButtonTitle?: string;
   /** 縦横の列数 */
@@ -20,8 +23,8 @@ export interface Props {
   readonly itemColor?: string;
   /** アイテムのマークの色 */
   readonly itemMarkColor?: string;
-  /** ボタンのCSS */
-  readonly buttonStyle?: CSSProperties;
   /** アイテムのCSS */
   readonly itemStyle?: CSSProperties;
+  /** ボタンのCSS */
+  readonly buttonStyle?: CSSProperties;
 }

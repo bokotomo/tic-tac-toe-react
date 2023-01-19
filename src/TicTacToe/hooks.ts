@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ItemType, GameEndType } from '../interface/item';
+import { ItemType, GameEndType, GameModeType } from '../interface/game';
 import { random } from '../modules/math';
 import { checkTicTacToe, getAIRow } from './logic';
 
@@ -13,7 +13,10 @@ interface HooksReturn {
 /**
  * Hooks: TicTacToe
  */
-export const useHooks = (squareSize: number): HooksReturn => {
+export const useHooks = (
+  squareSize: number,
+  gameMode: GameModeType
+): HooksReturn => {
   const isFirst = useRef(false);
   const [rows, setRows] = useState<ItemType[][]>([]);
   const [turnNumber, setTurnNumber] = useState<number>(0);
@@ -51,7 +54,8 @@ export const useHooks = (squareSize: number): HooksReturn => {
   useEffect((): void => {
     if (turnNumber === 0) return;
     if (checkGameEnd()) return;
-    if (isAITurn(isFirstTurn, turnNumber)) runAITurn();
+    if (gameMode !== GameModeType.AI) return;
+    if (isEnemyTurn(isFirstTurn, turnNumber)) runAITurn();
   }, [turnNumber]);
 
   /**
@@ -59,18 +63,34 @@ export const useHooks = (squareSize: number): HooksReturn => {
    */
   useEffect((): void => {
     if (!isGameEnd) return;
+    showGameEnd();
+  }, [isGameEnd]);
+
+  /**
+   * ゲーム終了表示
+   */
+  const showGameEnd = (): void => {
+    const isAI = gameMode === GameModeType.AI;
     switch (winner) {
       case GameEndType.WinMe:
-        alert('「あなた」の勝ちです！');
+        if (isAI) {
+          alert('「あなた」の勝ちです！');
+        } else {
+          alert('「マル」の勝ちです！');
+        }
         break;
       case GameEndType.WinEnemy:
-        alert('「相手」の勝ちです！');
+        if (isAI) {
+          alert('「相手」の勝ちです！');
+        } else {
+          alert('「バツ」の勝ちです！');
+        }
         break;
       case GameEndType.Draw:
         alert('引き分けです!');
         break;
     }
-  }, [isGameEnd]);
+  };
 
   /**
    * ゲームを評価
@@ -88,7 +108,7 @@ export const useHooks = (squareSize: number): HooksReturn => {
   /**
    * ターン判別
    */
-  const isAITurn = (isFirst: boolean, t: number): boolean =>
+  const isEnemyTurn = (isFirst: boolean, t: number): boolean =>
     isFirst ? t % 2 === 0 : t % 2 === 1;
 
   /**
@@ -128,7 +148,11 @@ export const useHooks = (squareSize: number): HooksReturn => {
     if (isGameEnd) return;
     if (!canSetRow(row, hor)) return;
 
-    setRow(row, hor, ItemType.Me);
+    if (gameMode === GameModeType.AI) {
+      setRow(row, hor, ItemType.Me);
+    } else {
+      setRow(row, hor, turnNumber % 2 === 0 ? ItemType.Enemy : ItemType.Me);
+    }
     setTurnNumber(turnNumber + 1);
   };
 
@@ -150,10 +174,14 @@ export const useHooks = (squareSize: number): HooksReturn => {
     reset();
 
     const isFirst = random(1) === 0;
-    if (isFirst) {
-      alert('あなたが「先攻」です!');
+    if (gameMode === GameModeType.AI) {
+      if (isFirst) {
+        alert('あなたが「先攻」です!');
+      } else {
+        alert('あなたが「後攻」です!');
+      }
     } else {
-      alert('あなたが「後攻」です!');
+      alert('「マル」が「先攻」です!');
     }
     setIsFirstTurn(isFirst);
     setTurnNumber(1);

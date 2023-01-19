@@ -4,7 +4,7 @@ import { useHooks } from './hooks';
 import { useAdapter } from './adapter';
 import { Props } from './interface';
 import TicTacToeItem from '../TicTacToeItem';
-import { GameEndType } from '../interface/item';
+import { GameEndType } from '../interface/game';
 
 /**
  * TicTacToe Compornent
@@ -21,8 +21,9 @@ const TicTacToe: React.FC<Props> = (p: Props): JSX.Element => {
     itemMarkColor,
     buttonStyle,
     itemStyle,
+    gameMode,
   } = useAdapter(p);
-  const { rows, winner, onClickItem, onClickStart } = useHooks(size);
+  const { rows, winner, onClickItem, onClickStart } = useHooks(size, gameMode);
 
   return (
     <div className={s.wrapper}>

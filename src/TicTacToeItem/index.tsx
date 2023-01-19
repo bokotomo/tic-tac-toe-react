@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './style.module.css';
-import { ItemType } from '../interface/item';
+import { ItemType } from '../interface/game';
 import Circle from './svg/Circle';
 import Xmark from './svg/Xmark';
 

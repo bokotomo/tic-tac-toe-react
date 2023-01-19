@@ -1,4 +1,4 @@
-import { ItemType, GameEndType } from '../interface/item';
+import { ItemType, GameEndType } from '../interface/game';
 import { random, transpose } from '../modules/math';
 
 interface TicTacToeReturn {

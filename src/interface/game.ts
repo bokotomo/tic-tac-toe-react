@@ -15,3 +15,12 @@ export enum GameEndType {
   WinMe = 2,
   WinEnemy = 3,
 }
+
+/**
+ * ゲームモード
+ */
+export enum GameModeType {
+  AI = 1,
+  FRIEND = 2,
+  ULTRA = 3,
+}
