@@ -4,14 +4,17 @@
   align-items: center;
   color: white;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 200%;
   background: linear-gradient(135deg, #5258aa, #456db5);
-  width: 100px;
-  height: 100px;
   border-radius: 4px;
   cursor: pointer;
 }
 .item:hover {
   opacity: 0.8;
   transition: 0.2s;
+}
+.item::before {
+  content: "";
+  padding-top: 100%;
+  display: block;
 }

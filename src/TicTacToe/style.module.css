@@ -17,10 +17,6 @@
   margin-bottom: 4px;
   justify-content: space-between;
 }
-.itemWrapper {
-  width: 312px;
-  margin: auto;
-}
 .buttonGame {
   color: white;
   background: linear-gradient(135deg, #3969ee, #4643a2);

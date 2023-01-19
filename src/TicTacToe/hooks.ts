@@ -3,13 +3,10 @@ import { ItemType, GameEndType } from '../interface/item';
 import { random } from '../modules/math';
 import { checkTicTacToe, getAIRow } from './logic';
 
-/** 正方形の列の数 */
-const defaultSize = 3;
-
 /**
  *
  */
-export const useHooks = () => {
+export const useHooks = (squareSize: number) => {
   const isFirst = useRef(false);
   const [rows, setRows] = useState<ItemType[][]>([]);
   const [turnNumber, setTurnNumber] = useState<number>(0);
@@ -25,8 +22,8 @@ export const useHooks = () => {
    */
   const setArrayRows = (): void => {
     const r = [];
-    for (let i = 0; i < defaultSize; i++) {
-      r.push(new Array(defaultSize).fill(ItemType.Unset));
+    for (let i = 0; i < squareSize; i++) {
+      r.push(new Array(squareSize).fill(ItemType.Unset));
     }
     setRows(r);
   };
